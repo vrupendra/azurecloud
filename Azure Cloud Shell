@@ -1,0 +1,36 @@
+# This is my first Azure cloud session
+
+Creating resources in Azure
+	
+	Create a Linux VM
+	
+	az vm create \
+  --name myVM \
+  --resource-group 0c5e9d1a-f1fa-4e44-a02a-6a3fb9e02d30 \
+  --image UbuntuLTS \
+  --location eastus \
+  --size Standard_DS2_v2 \
+  --admin-username azureuser \
+  --generate-ssh-keys
+  
+  
+  ---
+  
+  
+Verify your VM is running
+
+az vm get-instance-view \
+  --name myVM \
+  --resource-group 0c5e9d1a-f1fa-4e44-a02a-6a3fb9e02d30 \
+  --output table
+  
+  ---
+  
+  The output you see resembles this.
+
+Azure CLI
+
+Copy
+Name    ResourceGroup                         Location    ProvisioningState    PowerState
+------  ------------------------------------  ----------  -------------------  ------------
+myVM    0c5e9d1a-f1fa-4e44-a02a-6a3fb9e02d30  eastus      Succeeded            VM running
