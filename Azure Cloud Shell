@@ -34,3 +34,45 @@ Copy
 Name    ResourceGroup                         Location    ProvisioningState    PowerState
 ------  ------------------------------------  ----------  -------------------  ------------
 myVM    0c5e9d1a-f1fa-4e44-a02a-6a3fb9e02d30  eastus      Succeeded            VM running
+
+
+Add a web server
+
+Configure Nginx via Custom Script Extension?
+
+---
+
+az vm extension set \
+  --resource-group 0c5e9d1a-f1fa-4e44-a02a-6a3fb9e02d30 \
+  --vm-name myVM \
+  --name customScript \
+  --publisher Microsoft.Azure.Extensions \
+  --settings "{'fileUris':['https://raw.githubusercontent.com/MicrosoftDocs/mslearn-welcome-to-azure/master/configure-nginx.sh']}" \
+  --protected-settings "{'commandToExecute': './configure-nginx.sh'}"
+  
+  -----
+  Run this az vm open-port command to open port 80 (HTTP) through the firewall.
+  
+  az vm open-port \
+  --name myVM \
+  --resource-group 0c5e9d1a-f1fa-4e44-a02a-6a3fb9e02d30 \
+  --port 80
+  
+  Verify the configuration
+  
+  
+  az vm show \
+  --name myVM \
+  --resource-group 0c5e9d1a-f1fa-4e44-a02a-6a3fb9e02d30 \
+  --show-details \
+  --query [publicIps] \
+  --output tsv
+  
+  You see your VM's public IP address, for example, http://40.121.60.70/
+  
+  ---
+  
+  
+  
+  
+
